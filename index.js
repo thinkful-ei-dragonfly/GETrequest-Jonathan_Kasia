@@ -24,11 +24,11 @@ function render() {
   return $('ul').html(html.join(''));
 }
 
-function getDogImage(n) {
+function getDogImage(n, breed) {
   let error;
   //return obj with data image url that we save in the store
   //If n is greater than 50, return some error.
-  return fetch(`https://dog.ceo/api/breeds/image/random/${n}`)
+  return fetch(`https://dog.ceo/api/breed/${breed}/images/random/${n}`)
     .then(response => response.json());
 }
 
@@ -37,7 +37,7 @@ function handleClick() {
     e.preventDefault();
     const inputVar = $('#for-dog-image-entry').val();
     const breedVar = $('#random-dog-breed option:selected').val();
-    getDogImage(inputVar)
+    getDogImage(inputVar, breedVar)
       .then(response => {
         addDogsToState(response.message);
         render();
