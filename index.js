@@ -33,7 +33,7 @@ function getBreedImage(breed) {
       }
       throw new Error(response.statusText);
     })
-    .catch(error => alert('Must enter a valid Breed name!'));
+    .catch(error => alert(`"${breed}" is not a valid entry! You must enter a valid Breed name!`));
 }
 
 function getRandomImage(n) {
