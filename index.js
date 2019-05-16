@@ -54,6 +54,7 @@ function handleClick() {
   $('#single-breed-dog-img-form').submit(e => {
     e.preventDefault();
     const breedVar = $('#random-dog-breed').val();
+    $('#random-dog-breed').val('');
     getBreedImage(breedVar)
       .then(response => {
         addDogsToState([response.message]);
