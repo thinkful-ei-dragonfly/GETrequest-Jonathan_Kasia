@@ -45,6 +45,7 @@ function handleClick() {
   $('#random-dog-img-form').submit(e => {
     e.preventDefault();
     const inputVar = $('#for-dog-image-entry').val();
+    $('#for-dog-image-entry').val('');
     getRandomImage(inputVar)
       .then(response => {
         addDogsToState(response.message);
