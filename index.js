@@ -1,3 +1,4 @@
+
 'use strict';
 /* global $ */
 
@@ -25,9 +26,14 @@ function render() {
 }
 
 function getBreedImage(breed) {
-  console.log(breed);
   return fetch(`https://dog.ceo/api/breed/${breed}/images/random`)
-    .then(response => response.json());
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(response.statusText);
+    })
+    .catch(error => alert('Must enter a valid Breed name!'));
 }
 
 function getRandomImage(n) {
@@ -42,13 +48,12 @@ function handleClick() {
     getRandomImage(inputVar)
       .then(response => {
         addDogsToState(response.message);
-        console.log(response);
         render();
       });
   });
   $('#single-breed-dog-img-form').submit(e => {
     e.preventDefault();
-    const breedVar = $('#random-dog-breed option:selected').val();
+    const breedVar = $('#random-dog-breed').val();
     getBreedImage(breedVar)
       .then(response => {
         addDogsToState([response.message]);
@@ -58,7 +63,7 @@ function handleClick() {
 }
 
 function getBreedList() {
-  return fetch(`https://dog.ceo/api/breeds/list/all`)
+  return fetch('https://dog.ceo/api/breeds/list/all')
     .then(res => res.json())
     .then(data => {
       STATE.breeds = data;
